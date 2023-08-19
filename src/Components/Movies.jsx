@@ -3,10 +3,11 @@ import { useEffect, useState } from "react";
 import MovieCard from "./MovieCard";
 import Pagination from "./Pagination";
 
-export default function Movies(){
+export default function Movies(props){
+    let {watchList,setWatchList,handleAddtoWatchList,handleRemovefromWatchList}= props;
     let [movies,setMovies]=useState(undefined);
     let [pageNo,setPageNo]=useState(1);
-    let [watchList,setWatchList]=useState([]);
+    
 
     let handlePrev= ()=>{
         if(pageNo>1){
@@ -17,29 +18,12 @@ export default function Movies(){
         setPageNo(pageNo+1);
     }
 
-    let handleAddtoWatchList=(id)=>{
-        // let newWatchList=[...watchList];
-        // newWatchList.push(id)
-        // console.log(newWatchList);
-        // setWatchList(newWatchList);
-
-        // same thing in one line
-        let newWatchList = [...watchList,id];
-        localStorage.setItem("movies-app",JSON.stringify(newWatchList))
-        setWatchList(newWatchList)
-    }
-
-    let handleRemovefromWatchList=(id)=>{
-        let newWatchList=watchList.filter((movieId)=>{
-            return movieId!=id;
-        })
-        localStorage.setItem("movies-app",JSON.stringify(newWatchList))
-        setWatchList(newWatchList);
-    }
-
 
     useEffect(()=>{
         let favMoviesFromLocalStorage=JSON.parse(localStorage.getItem("movies-app"));
+        if(favMoviesFromLocalStorage == null){
+            return;
+        }
         setWatchList(favMoviesFromLocalStorage)
     },[])
     useEffect(()=>{
@@ -62,12 +46,12 @@ export default function Movies(){
             <div className="m-4 text-2xl text-center font-bold">Trending Movies</div>
             <div className="flex flex-wrap gap-5 justify-around">
 
-            {movies.map((movie)=>{
+            {movies.map((movieObj)=>{
                 return(<MovieCard 
-                                  id={movie.id}
-                                  key={movie.id}
-                                  title={movie.title} 
-                                  poster_path={movie.poster_path}
+                                  movieObj={movieObj}
+                                  key={movieObj.id}
+                                  title={movieObj.title} 
+                                  poster_path={movieObj.poster_path}
                                   watchList={watchList}
                                   handleAddtoWatchList={handleAddtoWatchList}
                                   handleRemovefromWatchList={handleRemovefromWatchList}/>)

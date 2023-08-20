@@ -19,13 +19,7 @@ export default function Movies(props){
     }
 
 
-    useEffect(()=>{
-        let favMoviesFromLocalStorage=JSON.parse(localStorage.getItem("movies-app"));
-        if(favMoviesFromLocalStorage == null){
-            return;
-        }
-        setWatchList(favMoviesFromLocalStorage)
-    },[])
+    
     useEffect(()=>{
         axios.get(`https://api.themoviedb.org/3/trending/movie/day?api_key=fdfa545a5bd09648cfa3a73362b23a3a&page=${pageNo}`)
         .then(function(response){

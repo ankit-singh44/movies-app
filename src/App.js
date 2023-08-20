@@ -4,13 +4,22 @@ import Banner from './Components/Banner';
 import Movies from './Components/Movies';
 import Navbar from './Components/Navbar';
 import WatchList from './Components/WatchList';
-import { useState  } from 'react';
+import { useState, useEffect  } from 'react';
 
 
 
 function App() {
 
   let [watchList,setWatchList]=useState([]);
+
+
+  useEffect(()=>{
+    let favMoviesFromLocalStorage=JSON.parse(localStorage.getItem("movies-app"));
+    if(favMoviesFromLocalStorage == null){
+        return;
+    }
+    setWatchList(favMoviesFromLocalStorage)
+},[])
 
 
   let handleAddtoWatchList=(movieObj)=>{

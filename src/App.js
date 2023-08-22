@@ -7,10 +7,21 @@ import WatchList from './Components/WatchList';
 import { useState, useEffect  } from 'react';
 
 
-
 function App() {
 
   let [watchList,setWatchList]=useState([]);
+
+  let [pageNo,setPageNo]=useState(1);
+    
+
+    let handlePrev= ()=>{
+        if(pageNo>1){
+            setPageNo(pageNo-1);
+        }
+    }
+    let  handleNext=()=>{
+        setPageNo(pageNo+1);
+    }
 
 
   useEffect(()=>{
@@ -51,16 +62,19 @@ let handleRemovefromWatchList=(movieObj)=>{
           <Movies watchList={watchList}
                   setWatchList={setWatchList}  
                   handleAddtoWatchList={handleAddtoWatchList}
-                  handleRemovefromWatchList={handleRemovefromWatchList}               
+                  handleRemovefromWatchList={handleRemovefromWatchList}
+                  pageNo={pageNo}
+                  handleNext={handleNext}
+                  handlePrev={handlePrev}             
           />
           </>
         } ></Route>
 
          <Route path="/watchlist" element={
           <WatchList watchList={watchList}
+                     setWatchList={setWatchList}
                      handleRemovefromWatchList={handleRemovefromWatchList}
-                    
-          /> 
+                    /> 
         } ></Route>
 
         <Route path='/banner' element={

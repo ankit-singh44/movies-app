@@ -43,7 +43,7 @@ export default function WatchList(props){
         <>
         <div className="flex justify-center flex-wrap">
             {genreList.map((genre)=>{
-                return <div onClick={()=>handleFilter(genre)}className={currGenre==genre?"m-3 h-[3rem] w-[12rem] bg-blue-400 rounded-xl flex justify-center items-center text-white font-bol hover":
+                return <div onClick={()=>handleFilter(genre)} key={genre} className={currGenre==genre?"m-3 h-[3rem] w-[12rem] bg-blue-400 rounded-xl flex justify-center items-center text-white font-bol hover":
                 "m-3 h-[3rem] w-[12rem] bg-gray-300 rounded-xl flex justify-center items-center text-white font-bol hover:cursor-pointer"}>{genre}</div>
             })}
         </div>

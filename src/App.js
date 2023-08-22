@@ -14,14 +14,17 @@ function App() {
   let [pageNo,setPageNo]=useState(1);
     
 
+
+  let  handleNext=()=>{
+    setPageNo(pageNo+1);
+}
+
     let handlePrev= ()=>{
         if(pageNo>1){
             setPageNo(pageNo-1);
         }
     }
-    let  handleNext=()=>{
-        setPageNo(pageNo+1);
-    }
+    
 
 
   useEffect(()=>{
